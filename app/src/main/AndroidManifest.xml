@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.derek.tictactoe" >
+<manifest package="com.derek.tictactoe"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        tools:overrideLibrary="com.leanplum, com.google.android.gms"/>
+
+    <!-- These permissions are required only for push notifications. -->
+
+    <!-- GCM requires a Google account (necessary only if if the device is running a version lower than Android 4.0.4). -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <!-- Optional. Prevents the device from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- These permissions are required only for geofencing. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -16,6 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

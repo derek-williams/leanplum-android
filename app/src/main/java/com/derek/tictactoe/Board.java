@@ -11,6 +11,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.leanplum.Leanplum;
+
+// For tracking user sessions.
+import com.leanplum.LeanplumActivityHelper;
+// For push notifications.
+import com.leanplum.LeanplumPushService;
+
+import com.leanplum.annotations.Parser;
+import com.leanplum.annotations.Variable;
+import com.leanplum.callbacks.StartCallback;
+import com.leanplum.callbacks.VariablesChangedCallback;
+
 public class Board extends AppCompatActivity {
 
 
@@ -23,6 +35,29 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Leanplum.setApplicationContext(this);
+
+        LeanplumActivityHelper.enableLifecycleCallbacks(this.getApplication());
+
+        // Insert your API keys here.
+        if (BuildConfig.DEBUG) {
+            Leanplum.setAppIdForDevelopmentMode("app_H91bpadV0q6DpBHmH9cshCdJsxVU3LQsQhBQTPAKAYk", "dev_DTkh2KbUEJdTxUGUTq1MsVhYnv9xzWs4jHK9etDNHFg");
+        } else {
+            Leanplum.setAppIdForProductionMode("app_H91bpadV0q6DpBHmH9cshCdJsxVU3LQsQhBQTPAKAYk", "prod_dC9VMUkMResITEboR4Y5iuHVOYn5s50UuQhi6Pgwgqo");
+        }
+
+        // Optional: Tracks all screens in your app as states in Leanplum.
+        // Leanplum.trackAllAppScreens();
+
+        // Enable push notifications.
+
+        // Option 2: Firebase Cloud Messaging
+        // Be sure to upload your Server API key to our dashboard.
+        LeanplumPushService.enableFirebase();
+
+        // This will only run once per session, even if the activity is restarted.
+        Leanplum.start(this);
+
         setContentView(R.layout.activity_board);
 
         size = Integer.parseInt(getString(R.string.size_of_board));
