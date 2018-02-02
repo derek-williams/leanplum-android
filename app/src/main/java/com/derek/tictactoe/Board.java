@@ -39,28 +39,6 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Leanplum.setApplicationContext(this);
-
-        LeanplumActivityHelper.enableLifecycleCallbacks(this.getApplication());
-
-        // Insert your API keys here.
-        if (BuildConfig.DEBUG) {
-            Leanplum.setAppIdForDevelopmentMode("app_H91bpadV0q6DpBHmH9cshCdJsxVU3LQsQhBQTPAKAYk", "dev_DTkh2KbUEJdTxUGUTq1MsVhYnv9xzWs4jHK9etDNHFg");
-        } else {
-            Leanplum.setAppIdForProductionMode("app_H91bpadV0q6DpBHmH9cshCdJsxVU3LQsQhBQTPAKAYk", "prod_dC9VMUkMResITEboR4Y5iuHVOYn5s50UuQhi6Pgwgqo");
-        }
-
-        // Optional: Tracks all screens in your app as states in Leanplum.
-        // Leanplum.trackAllAppScreens();
-
-        // Enable push notifications.
-
-        // Option 2: Firebase Cloud Messaging
-        // Be sure to upload your Server API key to our dashboard.
-        LeanplumPushService.enableFirebase();
-
-        // This will only run once per session, even if the activity is restarted.
-        Leanplum.start(this);
 
         setContentView(R.layout.activity_board);
 
@@ -90,19 +68,6 @@ public class Board extends AppCompatActivity {
                 startActivity(current);
             }
         });
-
-
-        Leanplum.addVariablesChangedHandler(new VariablesChangedCallback() {
-            @Override
-            public void variablesChanged() {
-                Leanplum.track("Launch");
-            }
-        });
-
-        Map<String, Object> attributes = new HashMap<String, Object>();
-        attributes.put("gender", "Male");
-        attributes.put("age", 24);
-        Leanplum.start(this, attributes);
 
     }
 
