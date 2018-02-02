@@ -23,8 +23,12 @@ import com.leanplum.annotations.Variable;
 import com.leanplum.callbacks.StartCallback;
 import com.leanplum.callbacks.VariablesChangedCallback;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Board extends AppCompatActivity {
 
+    @Variable public static String welcomeMessage = "Welcome to Leanplum!";
 
     private int size;
     TableLayout mainBoard;
@@ -86,6 +90,20 @@ public class Board extends AppCompatActivity {
                 startActivity(current);
             }
         });
+
+
+        Leanplum.addVariablesChangedHandler(new VariablesChangedCallback() {
+            @Override
+            public void variablesChanged() {
+                Leanplum.track("Launch");
+            }
+        });
+
+        Map<String, Object> attributes = new HashMap<String, Object>();
+        attributes.put("gender", "Male");
+        attributes.put("age", 24);
+        Leanplum.start(this, attributes);
+
     }
 
     protected void resetBoard(){
