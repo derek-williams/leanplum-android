@@ -1,82 +1,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_google_signin_btn_icon_dark"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Board">
+    tools:context=".Board">
 
 
     <TableLayout
+        android:id="@+id/mainBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="top|center"
         android:clickable="true"
-        android:padding="10dp"
-        android:id="@+id/mainBoard"
+        android:gravity="center"
         android:nestedScrollingEnabled="false"
-        >
+        android:padding="10dp">
 
         <TableRow
-            style="@style/TableRow"
             android:id="@+id/row0"
-            >
+            style="@style/TableRow">
+
             <TextView
-                android:layout_column="0"
-                style="@style/LeftCell">
+                style="@style/LeftCell"
+                android:layout_column="0">
 
             </TextView>
+
             <TextView
-                android:layout_column="1"
-                style="@style/MiddleCell">
+                style="@style/MiddleCell"
+                android:layout_column="1">
 
             </TextView>
+
             <TextView
-                android:layout_column="2"
-                style="@style/RightCell">
+                style="@style/RightCell"
+                android:layout_column="2">
 
             </TextView>
 
         </TableRow>
+
         <TableRow
-            style="@style/TableRow"
             android:id="@+id/row1"
-            >
+            style="@style/TableRow">
+
             <TextView
-                android:layout_column="0"
-                style="@style/LeftCell">
+                style="@style/LeftCell"
+                android:layout_column="0">
 
             </TextView>
+
             <TextView
-                android:layout_column="1"
-                style="@style/MiddleCell">
+                style="@style/MiddleCell"
+                android:layout_column="1">
 
             </TextView>
+
             <TextView
-                android:layout_column="2"
-                style="@style/RightCell">
+                style="@style/RightCell"
+                android:layout_column="2">
 
             </TextView>
 
         </TableRow>
+
         <TableRow
-            style="@style/TableRow"
             android:id="@+id/row2"
-            >
+            style="@style/TableRow">
+
             <TextView
-                android:layout_column="0"
-                style="@style/LeftCell">
+                style="@style/LeftCell"
+                android:layout_column="0">
 
             </TextView>
+
             <TextView
-                android:layout_column="1"
-                style="@style/MiddleCell">
+                style="@style/MiddleCell"
+                android:layout_column="1">
 
             </TextView>
+
             <TextView
-                android:layout_column="2"
-                style="@style/RightCell">
+                style="@style/RightCell"
+                android:layout_column="2">
 
             </TextView>
 
@@ -85,21 +98,31 @@
     </TableLayout>
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Turn: "
         android:id="@+id/turn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="left"
         android:padding="10dp"
-        android:textSize="24sp"
+        android:text="Turn: "
         android:textColor="@color/red"
-        />
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/power"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset Match"
         android:id="@+id/reset"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Reset Match" />
+
+    <Button
+        android:id="@+id/lp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>

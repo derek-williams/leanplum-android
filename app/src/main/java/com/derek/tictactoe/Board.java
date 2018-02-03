@@ -1,12 +1,19 @@
 package com.derek.tictactoe;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Icon;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,34 +25,62 @@ import com.leanplum.LeanplumActivityHelper;
 // For push notifications.
 import com.leanplum.LeanplumPushService;
 
+import com.leanplum.Var;
+import com.leanplum.activities.LeanplumActivity;
 import com.leanplum.annotations.Parser;
 import com.leanplum.annotations.Variable;
 import com.leanplum.callbacks.StartCallback;
+import com.leanplum.callbacks.VariableCallback;
 import com.leanplum.callbacks.VariablesChangedCallback;
 
+import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Board extends AppCompatActivity {
+public class Board extends LeanplumActivity {
 
-    @Variable public static String welcomeMessage = "Welcome to Leanplum!";
+    public static Var<String> lpMessage = Var.define("lpMessage", "LP: ");
+    public static Var<String> mario = Var.defineAsset("Mario", "mario.png");
+    @Variable public static Map<String, Object> lpDictionary = new HashMap<String, Object>() {
+        {
+            put("name", "Turbo Boost");
+            put("price", 150);
+            put("speedMultiplier", 1.5);
+            put("timeout", 15);
+            put("slots", Arrays.asList(1, 2, 3));
+        }
+    };
 
     private int size;
     TableLayout mainBoard;
     TextView tv_turn;
     char [][] board;
     char turn;
+    ImageView bg;
+    LinearLayout main;
+    TextView power;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_board);
+        Leanplum.setApplicationContext(this);
 
+
+
+        setContentView(R.layout.activity_board);
+        main = (LinearLayout)findViewById(R.id.main) ;
         size = Integer.parseInt(getString(R.string.size_of_board));
         board = new char [size][size];
         mainBoard = (TableLayout) findViewById(R.id.mainBoard);
         tv_turn = (TextView) findViewById(R.id.turn);
+        power = (TextView) findViewById(R.id.power);
+        Bitmap image = BitmapFactory.decodeStream(mario.stream());
+        final BitmapDrawable bitmapDrawable = new BitmapDrawable(image);
+
+
+
 
         resetBoard();
         tv_turn.setText("Turn: "+turn);
@@ -63,12 +98,29 @@ public class Board extends AppCompatActivity {
         rstbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resetBoard();
+                //mainBoard.setBackgroundDrawable(background);
                 Intent current = getIntent();
                 finish();
                 startActivity(current);
             }
         });
 
+
+        Button lpbtn = (Button) findViewById(R.id.lp);
+        lpbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_turn.setText(lpMessage.stringValue);
+                Object o = lpDictionary.getOrDefault("name", "null");
+                power.setText(o.toString());
+                mario.addFileReadyHandler(new VariableCallback<String>() {
+                    @Override
+                    public void handle(Var<String> variable) { main.setBackground(bitmapDrawable);
+                    }
+                });
+            }
+        });
     }
 
     protected void resetBoard(){
