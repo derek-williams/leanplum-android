@@ -33,6 +33,8 @@ public class TicTacToe extends Application {
             Leanplum.setAppIdForProductionMode("app_H91bpadV0q6DpBHmH9cshCdJsxVU3LQsQhBQTPAKAYk", "prod_dC9VMUkMResITEboR4Y5iuHVOYn5s50UuQhi6Pgwgqo");
         }
 
+        LeanplumPushService.setGcmSenderId(LeanplumPushService.LEANPLUM_SENDER_ID);
+
         // Optional: Tracks all screens in your app as states in Leanplum.
         // Leanplum.trackAllAppScreens();
 
